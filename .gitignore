@@ -1,0 +1,4 @@
+jobs-frontend/node_modules
+jobs-api/node_modules
+jobs-frontend/package-lock.json
+jobs-api/package-lock.json
