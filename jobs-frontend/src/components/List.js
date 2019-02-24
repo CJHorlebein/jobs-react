@@ -8,6 +8,7 @@ class List extends Component {
         super(props);
         let initialState = {
             ref: '',
+            selected: '',
             jobs: []
         }
         this.state = initialState;
@@ -22,16 +23,30 @@ class List extends Component {
             })
         })
     }
-    componentDidMount(){
-        this.updateJobs()
+    setRedirect(e) {
+        this.setState({
+            selected: e.target.value
+        })
+    }
+    loadPage(e) {
+        e.preventDefault();
+        this.props.history.push(`/list/${this.state.selected}`);
     }
     render() {
-        // console.log(this.state.jobs)
         if (this.state.ref !== this.props.match.params.ref){
             this.updateJobs();
         }
         return (
-            <div>
+            <div>            
+                <form onSubmit={(e) => this.loadPage(e)}>
+                    <input onChange={(e) => this.setRedirect(e)} type="radio" name="ref" value="javascript" />
+                    <label htmlFor="javascript">Javascript</label>
+                    <input onChange={(e) => this.setRedirect(e)} type="radio" name="ref" value="python" />
+                    <label htmlFor="python">Python</label>
+                    <input onChange={(e) => this.setRedirect(e)} type="radio" name="ref" value="ruby" />
+                    <label htmlFor="ruby">Ruby</label>
+                    <button type="submit">submit</button>
+                </form>
                 {this.state.jobs.map((job, i) => {
                     return <div key={i}>
                         <Link to={`../details/${job.id}`}> {job.company} </Link>
