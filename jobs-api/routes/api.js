@@ -7,7 +7,7 @@ router.get('/list/:ref?/', function(req, res, next) {
   axios.get(`http://jobs.github.com/positions.json?location=newyork&description=${req.params.ref}`)
   	.then(({data})=>{
   		res.json(data);
-  	}).catch((error)=>{
+  	}).cach((error)=>{
       res.status(500).send(error)
     });
 
